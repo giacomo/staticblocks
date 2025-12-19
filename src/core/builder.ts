@@ -313,6 +313,13 @@ export class Builder {
 
     let metaTags = '';
 
+    // Base tag MUST come first (before any link or script elements)
+    if (context.baseUrl) {
+      // Normalize baseUrl: remove trailing slash, then add it back for consistency
+      let baseUrl = context.baseUrl.endsWith('/') ? context.baseUrl.slice(0, -1) : context.baseUrl;
+      metaTags += `\n  <base href="${baseUrl}/">`;
+    }
+
     // Description
     if (meta.description) {
       metaTags += `\n  <meta name="description" content="${meta.description}">`;
@@ -383,7 +390,10 @@ export class Builder {
       metaTags += `\n  <meta name="robots" content="noindex, nofollow">`;
     }
 
-    // Insert meta tags after <head>
+    // Remove any existing base tags from template to avoid duplication
+    template = template.replace(/<base\s+[^>]*>/gi, '');
+
+    // Insert meta tags (including base tag) after <head>
     return template.replace('<head>', `<head>${metaTags}`);
   }
 
