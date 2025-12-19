@@ -218,7 +218,11 @@ export class TemplateEngine {
 
     // URL helper with language prefix
     this.registerHelper('url', (context, path) => {
-      const baseUrl = context.baseUrl || '';
+      let baseUrl = context.baseUrl || '';
+      // Remove trailing slash from baseUrl to avoid double slashes
+      if (baseUrl.endsWith('/')) {
+        baseUrl = baseUrl.slice(0, -1);
+      }
       const prefix = context.langPrefix || '';
       let normalizedPath = path.startsWith('/') ? path : `/${path}`;
       // Remove trailing slash unless it's the root path
@@ -230,7 +234,11 @@ export class TemplateEngine {
 
     // Asset URL helper
     this.registerHelper('asset', (context, path) => {
-      const baseUrl = context.baseUrl || '';
+      let baseUrl = context.baseUrl || '';
+      // Remove trailing slash from baseUrl to avoid double slashes
+      if (baseUrl.endsWith('/')) {
+        baseUrl = baseUrl.slice(0, -1);
+      }
       const normalizedPath = path.startsWith('/') ? path : `/${path}`;
       return `${baseUrl}${normalizedPath}`;
     });
