@@ -1,6 +1,6 @@
 {
   "name": "staticblocks",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple, block-based static site generator",
   "main": "dist/index.js",
   "bin": {
@@ -16,6 +16,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build",
+    "publish": "npm run build && npm pack && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

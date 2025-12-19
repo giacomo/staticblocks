@@ -161,6 +161,8 @@ export class Builder {
       currentLang,
       langPrefix,
       activeNav: page.activeNav,
+      isDev: this.isDev,
+      baseUrl: this.isDev ? '' : (this.config.baseUrl || ''),
     };
 
     // Render blocks
@@ -432,6 +434,8 @@ export class Builder {
       outputPath: '',
       currentLang: locale || defaultLocale,
       langPrefix: this.getLangPrefix(locale || defaultLocale, defaultLocale),
+      isDev: this.isDev,
+      baseUrl: this.isDev ? '' : (this.config.baseUrl || ''),
     };
 
     // Translate title and description if they contain template syntax

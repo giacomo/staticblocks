@@ -10,6 +10,7 @@ export interface ProjectConfig {
   css: 'tailwind' | 'bootstrap';
   icons: 'lucide' | 'fontawesome';
   port?: number;
+  baseUrl?: string;
   i18n?: I18nConfig;
   scripts?: ScriptConfig;
   meta?: GlobalMetaData;
@@ -77,6 +78,8 @@ export interface RenderContext extends BuildContext {
   currentLang: string;
   langPrefix: string;
   activeNav?: string;
+  isDev?: boolean;
+  baseUrl?: string;
 }
 
 // ============================================================================
