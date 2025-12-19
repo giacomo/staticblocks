@@ -1,0 +1,65 @@
+{
+  "name": "staticblocks",
+  "version": "0.1.0",
+  "description": "A simple, block-based static site generator",
+  "main": "dist/index.js",
+  "bin": {
+    "staticblocks": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "static-site-generator",
+    "ssg",
+    "blocks",
+    "templates",
+    "i18n",
+    "typescript",
+    "tailwind",
+    "html-templates"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/giacomo/staticblocks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/giacomo/staticblocks/issues"
+  },
+  "homepage": "https://github.com/giacomo/staticblocks#readme",
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "chalk": "^4.1.2",
+    "chokidar": "^3.5.3",
+    "commander": "^11.1.0",
+    "esbuild": "^0.19.8",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^8.2.6",
+    "js-yaml": "^4.1.0",
+    "postcss": "^8.4.32",
+    "tsx": "^4.7.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^8.2.10",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.10.5",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.3.3"
+  }
+}
