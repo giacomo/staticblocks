@@ -4,7 +4,7 @@
   "description": "A simple, block-based static site generator",
   "main": "dist/index.js",
   "bin": {
-    "staticblocks": "./dist/cli.js"
+    "staticblocks": "dist/cli.js"
   },
   "files": [
     "dist",
@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "publish": "npm run build && npm publish",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
