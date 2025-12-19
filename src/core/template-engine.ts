@@ -218,19 +218,21 @@ export class TemplateEngine {
 
     // URL helper with language prefix
     this.registerHelper('url', (context, path) => {
+      const baseUrl = context.baseUrl || '';
       const prefix = context.langPrefix || '';
       let normalizedPath = path.startsWith('/') ? path : `/${path}`;
       // Remove trailing slash unless it's the root path
       if (normalizedPath !== '/' && normalizedPath.endsWith('/')) {
         normalizedPath = normalizedPath.slice(0, -1);
       }
-      return `${prefix}${normalizedPath}`;
+      return `${baseUrl}${prefix}${normalizedPath}`;
     });
 
     // Asset URL helper
     this.registerHelper('asset', (context, path) => {
+      const baseUrl = context.baseUrl || '';
       const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-      return normalizedPath;
+      return `${baseUrl}${normalizedPath}`;
     });
 
     // Year helper (for copyright notices)

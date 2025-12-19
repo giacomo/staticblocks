@@ -173,8 +173,9 @@ export class Builder {
     blocksHtml = blocksHtml.replace(/\{\{/g, '__TEMPLATE_OPEN__').replace(/\}\}/g, '__TEMPLATE_CLOSE__');
 
     // Collect scripts and styles
-    const scripts = await this.collectScripts(page.blocks);
-    const styles = await this.collectStyles(page.blocks);
+    const baseUrl = renderContext.baseUrl || '';
+    const scripts = await this.collectScripts(page.blocks, baseUrl);
+    const styles = await this.collectStyles(page.blocks, baseUrl);
 
     // Replace placeholders in template
     template = template.replace('{{blocks}}', blocksHtml);
@@ -246,7 +247,7 @@ export class Builder {
   /**
    * Collect JavaScript files for blocks
    */
-  private async collectScripts(blocks: any[]): Promise<string[]> {
+  private async collectScripts(blocks: any[], baseUrl: string = ''): Promise<string[]> {
     const scripts: string[] = [];
 
     for (const blockInstance of blocks) {
@@ -254,14 +255,14 @@ export class Builder {
       const jsPath = path.join(this.srcPath, 'blocks', `${blockName}.js`);
 
       if (await fs.pathExists(jsPath)) {
-        scripts.push(`/assets/js/blocks/${blockName}.js`);
+        scripts.push(`${baseUrl}/assets/js/blocks/${blockName}.js`);
       }
     }
 
     // Add global scripts
     const globalJsPath = path.join(this.srcPath, 'assets/js/main.js');
     if (await fs.pathExists(globalJsPath)) {
-      scripts.push('/assets/js/main.js');
+      scripts.push(`${baseUrl}/assets/js/main.js`);
     }
 
     return scripts;
@@ -270,7 +271,7 @@ export class Builder {
   /**
    * Collect CSS files for blocks
    */
-  private async collectStyles(blocks: any[]): Promise<string[]> {
+  private async collectStyles(blocks: any[], baseUrl: string = ''): Promise<string[]> {
     const styles: string[] = [];
 
     for (const blockInstance of blocks) {
@@ -278,7 +279,7 @@ export class Builder {
       const cssPath = path.join(this.srcPath, 'blocks', `${blockName}.css`);
 
       if (await fs.pathExists(cssPath)) {
-        styles.push(`/assets/css/blocks/${blockName}.css`);
+        styles.push(`${baseUrl}/assets/css/blocks/${blockName}.css`);
       }
     }
 
