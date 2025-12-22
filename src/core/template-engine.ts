@@ -223,8 +223,32 @@ export class TemplateEngine {
       if (baseUrl.endsWith('/')) {
         baseUrl = baseUrl.slice(0, -1);
       }
-      const prefix = context.langPrefix || '';
+
       let normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+      // Check if the path already contains a language prefix
+      // If so, don't add the context's language prefix
+      let prefix = '';
+      if (context.config?.i18n) {
+        const locales = context.config.i18n.locales || [];
+        const pathSegments = normalizedPath.split('/').filter(Boolean);
+        const firstSegment = pathSegments[0];
+
+        // If the first segment is a locale code, don't add context's langPrefix
+        const hasExplicitLangPrefix = firstSegment && locales.includes(firstSegment);
+
+        if (!hasExplicitLangPrefix) {
+          // Only add langPrefix if we're not on the default locale (no language selected)
+          const defaultLocale = context.config.i18n.defaultLocale || 'de';
+          const currentLocale = context.currentLang || defaultLocale;
+
+          // Don't add prefix if on default locale and strategy is prefix_except_default
+          if (currentLocale !== defaultLocale || context.config.i18n.strategy === 'prefix') {
+            prefix = context.langPrefix || '';
+          }
+        }
+      }
+
       // Remove trailing slash unless it's the root path
       if (normalizedPath !== '/' && normalizedPath.endsWith('/')) {
         normalizedPath = normalizedPath.slice(0, -1);
