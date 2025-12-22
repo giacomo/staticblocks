@@ -1,6 +1,6 @@
 {
   "name": "staticblocks",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "A simple, block-based static site generator",
   "main": "dist/index.js",
   "bin": "dist/cli.js",
