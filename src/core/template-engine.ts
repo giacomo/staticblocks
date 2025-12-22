@@ -238,13 +238,19 @@ export class TemplateEngine {
         const hasExplicitLangPrefix = firstSegment && locales.includes(firstSegment);
 
         if (!hasExplicitLangPrefix) {
-          // Only add langPrefix if we're not on the default locale (no language selected)
-          const defaultLocale = context.config.i18n.defaultLocale || 'de';
-          const currentLocale = context.currentLang || defaultLocale;
+          // Special case: if path is exactly '/', it should link to the default locale
+          // without any language prefix, regardless of current language
+          if (normalizedPath === '/') {
+            prefix = '';
+          } else {
+            // Only add langPrefix if we're not on the default locale
+            const defaultLocale = context.config.i18n.defaultLocale || 'de';
+            const currentLocale = context.currentLang || defaultLocale;
 
-          // Don't add prefix if on default locale and strategy is prefix_except_default
-          if (currentLocale !== defaultLocale || context.config.i18n.strategy === 'prefix') {
-            prefix = context.langPrefix || '';
+            // Don't add prefix if on default locale and strategy is prefix_except_default
+            if (currentLocale !== defaultLocale || context.config.i18n.strategy === 'prefix') {
+              prefix = context.langPrefix || '';
+            }
           }
         }
       }

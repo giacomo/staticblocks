@@ -3,9 +3,7 @@
   "version": "0.1.6",
   "description": "A simple, block-based static site generator",
   "main": "dist/index.js",
-  "bin": {
-    "staticblocks": "dist/cli.js"
-  },
+  "bin": "dist/cli.js",
   "files": [
     "dist",
     "README.md",
@@ -16,7 +14,8 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [
     "static-site-generator",
@@ -60,6 +59,7 @@
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.10.5",
     "@types/ws": "^8.18.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^4.0.16"
   }
 }
